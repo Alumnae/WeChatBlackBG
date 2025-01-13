@@ -13,3 +13,10 @@
 【微信】使用 weui_color.xml
 
 之前版本不加载weui，此脚本不兼容。
+
+
+![Alt text](assets/photo_2025-01-06_10-00-13.jpg)
+![Alt text](assets/photo_2025-01-06_10-00-15.jpg)
+![Alt text](assets/photo_2025-01-06_10-00-35.jpg)
+![Alt text](assets/photo_2025-01-06_10-00-36.jpg)
+![Alt text](assets/photo_2025-01-13_14-38-52.jpg)
