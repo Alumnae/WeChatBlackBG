@@ -1,0 +1,98 @@
+#scripts For Filza File Manager
+#argument $1: file name
+#argument $2: file userid:groupid
+##################################
+#微信纯黑背景 1.0 by TG @b1uet
+#warning:【微信纯黑背景】此脚本将为微信修改纯黑背景。如需还原请再一次运行此脚本即可。如微信已更新请重新运行此脚本。【请注意，此版本仅适用于运行在 fish 版本的Filza 文件管理器。】
+#!/usr/bin/env fish
+
+# 设置目标应用程序和搜索路径
+set targetApp "WeChat"
+set searchPath "/var/containers/Bundle/Application"
+
+# 查找目标应用程序目录
+set path (find $searchPath -maxdepth 2 -type d -name "$targetApp.app" | head -n 1)
+
+if test -n "$path"
+    echo "找到目录: $path"
+
+    # 假设 XML 文件在目标应用程序目录下
+    set xml_file_sp_new "$path/weui_color_sp_new.xml"
+    set xml_file_new "$path/weui_color_new.xml"
+
+    # 确保 XML 文件存在
+    if test -e $xml_file_sp_new
+        echo "正在处理 XML 文件: $xml_file_sp_new"
+
+        # 读取文件内容
+        set xml_content (cat $xml_file_sp_new)
+
+        # 检查 BG_0 是否已经更改
+        if echo $xml_content | string match -q '*<color name="BG_0">#EDEDED,#090909</color>*'
+            echo "检测到 BG_0 的值已经更改，正在恢复所有颜色值。"
+
+            # 恢复所有颜色值到原始状态
+            sed -i '' 's|<color name="BG_0">#EDEDED,#090909</color>|<color name="BG_0">#EDEDED,#111111</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_2">#FFFFFF,#000000</color>|<color name="BG_2">#FFFFFF,#191919</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_3">#F7F7F7,#000000</color>|<color name="BG_3">#F7F7F7,#202020</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_4">#4C4C4C,#000000</color>|<color name="BG_4">#4C4C4C,#404040</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_5">#FFFFFF,#000000</color>|<color name="BG_5">#FFFFFF,#2C2C2C</color>|' "$xml_file_sp_new"
+
+            echo "所有颜色值已恢复到原始状态。"
+        else
+            echo "BG_0 的值未更改，开始应用新的颜色值。"
+
+            # 替换指定的颜色值
+            sed -i '' 's|<color name="BG_0">#EDEDED,#111111</color>|<color name="BG_0">#EDEDED,#090909</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_2">#FFFFFF,#191919</color>|<color name="BG_2">#FFFFFF,#000000</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_3">#F7F7F7,#202020</color>|<color name="BG_3">#F7F7F7,#000000</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_4">#4C4C4C,#404040</color>|<color name="BG_4">#4C4C4C,#000000</color>|' "$xml_file_sp_new"
+            sed -i '' 's|<color name="BG_5">#FFFFFF,#2C2C2C</color>|<color name="BG_5">#FFFFFF,#000000</color>|' "$xml_file_sp_new"
+
+            echo "新的颜色值已应用。"
+        end
+
+        echo "处理完成: $xml_file_sp_new"
+    else
+        echo "XML 文件未找到: $xml_file_sp_new"
+    end
+
+    # 对 weui_color_new.xml 文件执行相同操作
+    if test -e $xml_file_new
+        echo "正在处理 XML 文件: $xml_file_new"
+
+        # 读取文件内容
+        set xml_content (cat $xml_file_new)
+
+        # 检查 BG_0 是否已经更改
+        if echo $xml_content | string match -q '*<color name="BG_0">#EDEDED,#090909</color>*'
+            echo "检测到 BG_0 的值已经更改，正在恢复所有颜色值。"
+
+            # 恢复所有颜色值到原始状态
+            sed -i '' 's|<color name="BG_0">#EDEDED,#090909</color>|<color name="BG_0">#EDEDED,#111111</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_2">#FFFFFF,#000000</color>|<color name="BG_2">#FFFFFF,#191919</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_3">#F7F7F7,#000000</color>|<color name="BG_3">#F7F7F7,#202020</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_4">#4C4C4C,#000000</color>|<color name="BG_4">#4C4C4C,#404040</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_5">#FFFFFF,#000000</color>|<color name="BG_5">#FFFFFF,#2C2C2C</color>|' "$xml_file_new"
+
+            echo "所有颜色值已恢复到原始状态。"
+        else
+            echo "BG_0 的值未更改，开始应用新的颜色值。"
+
+            # 替换指定的颜色值
+            sed -i '' 's|<color name="BG_0">#EDEDED,#111111</color>|<color name="BG_0">#EDEDED,#090909</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_2">#FFFFFF,#191919</color>|<color name="BG_2">#FFFFFF,#000000</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_3">#F7F7F7,#202020</color>|<color name="BG_3">#F7F7F7,#000000</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_4">#4C4C4C,#404040</color>|<color name="BG_4">#4C4C4C,#000000</color>|' "$xml_file_new"
+            sed -i '' 's|<color name="BG_5">#FFFFFF,#2C2C2C</color>|<color name="BG_5">#FFFFFF,#000000</color>|' "$xml_file_new"
+
+            echo "新的颜色值已应用。"
+        end
+
+        echo "处理完成: $xml_file_new"
+    else
+        echo "XML 文件未找到: $xml_file_new"
+    end
+else
+    echo "$targetApp.app 目录未找到。"
+end
